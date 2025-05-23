@@ -17,10 +17,10 @@ It posits that instruments will have a lognormal distribution of prices (asset p
 
 <img width="428" alt="image" src="https://github.com/user-attachments/assets/48d1cb3b-b6b6-435b-bf2f-f20fe41f1271" />
 
-C	=	call option price
-N	=	CDF of the normal distribution
-S_t	=	spot price of an asset
-K	=	strike price
-r	=	risk-free interest rate
-t	=	time to maturity
-\sigma	=	volatility of the asset
+C	=	call option price <br>
+N	=	CDF of the normal distribution <br>
+S_t	=	spot price of an asset <br>
+K	=	strike price <br>
+r	=	risk-free interest rate <br>
+t	=	time to maturity <br>
+sigma	=	volatility of the asset
