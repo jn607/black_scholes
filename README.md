@@ -14,4 +14,5 @@ It posits that instruments will have a lognormal distribution of prices (asset p
 - The option is European and can only be exercised at expiration
 
 **Black-Scholes Model Formula**
+
 <img width="440" alt="image" src="https://github.com/user-attachments/assets/70b6bf71-d951-45b7-89da-463ab4f11ea5" />
