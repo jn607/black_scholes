@@ -1,4 +1,6 @@
-This repo includes a Python REPL application that calculates call and put options for given input values using the Black-Scholes Model
+This repo includes a Python REPL application that calculates call and put options for given input values using the Black-Scholes Model.
+
+I aim to include a user friendly GUI using Streamlit.
 
 # Black-Scholes (or Black-Scholes-Merton) Model
 It is a differential equation developed in 1973 used to calculate the theoretical value of European-style options contracts.
