@@ -1,4 +1,4 @@
-This repo includes a Python REPL application that calculates call and put options for given input values using the Black-Scholes Model.
+This repo includes a Python REPL (Read-Eval-Print Loop) application that calculates call and put options for given input values using the Black-Scholes Model.
 
 I aim to include a user friendly GUI using Streamlit.
 
