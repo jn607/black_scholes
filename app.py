@@ -1,5 +1,9 @@
 import streamlit as st
 from black_scholes.model import black_scholes
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
 
 # --- Page config ---
 st.set_page_config(
@@ -152,6 +156,11 @@ with st.container():
     if submitted:
         try:
             call, put = black_scholes(S, K, t, r, sigma)
+            d1 = (math.log(S / K) + (r + 0.5 * sigma**2) * t) / (sigma * math.sqrt(t))
+            d2 = d1 - sigma * math.sqrt(t)
+            N_d1 = norm.cdf(d1)
+            N_d2 = norm.cdf(d2)
+
             st.markdown("""
                 <div class='result-card'>
                     <h3 style='text-align:center; color:#059669; margin-bottom:1em;'>Results</h3>
@@ -170,6 +179,54 @@ with st.container():
                     </div>
                 </div>
             """.format(call, put), unsafe_allow_html=True)
+
+            with st.expander("Show calculation steps and explanation"):
+                st.markdown("#### Black-Scholes Formula")
+                st.latex(r"""
+                    \begin{align*}
+                    d_1 &= \frac{\ln(S/K) + (r + \frac{1}{2}\sigma^2)t}{\sigma\sqrt{t}} \\
+                    d_2 &= d_1 - \sigma\sqrt{t} \\
+                    C &= S N(d_1) - K e^{-rt} N(d_2) \\
+                    P &= K e^{-rt} N(-d_2) - S N(-d_1)
+                    \end{align*}
+                """)
+                st.markdown("#### Your Inputs")
+                st.write(f"Spot Price (S): {S}")
+                st.write(f"Strike Price (K): {K}")
+                st.write(f"Time to Expiry (t): {t}")
+                st.write(f"Risk-Free Rate (r): {r}")
+                st.write(f"Volatility (σ): {sigma}")
+
+                st.markdown("#### Step-by-Step Calculation")
+                st.latex(fr"d_1 = \frac{{\ln({S}/{K}) + ({r} + 0.5 \times {sigma}^2) \times {t}}}{{{sigma} \times \sqrt{{{t}}}}} = {d1:.4f}")
+                st.latex(fr"d_2 = {d1:.4f} - {sigma} \times \sqrt{{{t}}} = {d2:.4f}")
+                st.latex(fr"C = {S} \times N({d1:.4f}) - {K} \times e^{{-{r} \times {t}}} \times N({d2:.4f}) = {call:.2f}")
+                st.latex(fr"P = {K} \times e^{{-{r} \times {t}}} \times N(-{d2:.4f}) - {S} \times N(-{d1:.4f}) = {put:.2f}")
+
+                st.info("N(x) is the cumulative distribution function (CDF) of the standard normal distribution.")
+
+                # --- Graphical Explanation ---
+                st.markdown("#### Visualizing d₁ and d₂ on the Standard Normal Distribution")
+                x = np.linspace(-4, 4, 500)
+                y = norm.pdf(x)
+                fig, ax = plt.subplots(figsize=(7, 3.5))
+                ax.plot(x, y, color="#6366f1", lw=2, label="Standard Normal PDF")
+                ax.fill_between(x, 0, y, where=(x <= d1), color="#22c55e", alpha=0.3, label=f"Area ≤ d₁ ({d1:.2f})")
+                ax.fill_between(x, 0, y, where=(x <= d2), color="#ef4444", alpha=0.3, label=f"Area ≤ d₂ ({d2:.2f})")
+                ax.axvline(d1, color="#22c55e", linestyle="--", lw=2, label=f"d₁ = {d1:.2f}")
+                ax.axvline(d2, color="#ef4444", linestyle="--", lw=2, label=f"d₂ = {d2:.2f}")
+                ax.set_title("Standard Normal Distribution with d₁ and d₂")
+                ax.set_xlabel("x")
+                ax.set_ylabel("Probability Density")
+                ax.legend(loc="upper left")
+                st.pyplot(fig)
+
+                st.markdown(f"""
+                - The **green area** under the curve up to d₁ ({d1:.2f}) represents N(d₁) = {N_d1:.4f}
+                - The **red area** under the curve up to d₂ ({d2:.2f}) represents N(d₂) = {N_d2:.4f}
+                - These values are used in the Black-Scholes formula to calculate the option prices.
+                """)
+
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
 
