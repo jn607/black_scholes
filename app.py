@@ -138,6 +138,34 @@ with st.container():
     st.markdown("<div class='main'>", unsafe_allow_html=True)
     st.markdown("<div class='gradient-title'>Black-Scholes Options Calculator</div>", unsafe_allow_html=True)
     st.markdown("<p style='text-align:center; color:#64748b; margin-bottom:2em; font-size:1.15em;'>A creative, modern tool for pricing European options.<br>Built by <b>Joshua Nolan</b></p>", unsafe_allow_html=True)
+    with st.expander("ℹ️ What do d₁ and d₂ mean? (Theory)", expanded=False):
+        st.markdown("""
+**d₁ and d₂ are at the heart of the Black-Scholes formula.**
+
+- The Black-Scholes model assumes that asset prices follow a lognormal process, and uses the standard normal distribution (the familiar bell curve) to calculate probabilities.
+- **d₁** and **d₂** are calculated from your inputs (spot price, strike price, time, volatility, and risk-free rate).
+- The values **N(d₁)** and **N(d₂)** are the areas under the standard normal curve up to d₁ and d₂, representing probabilities.
+
+#### What do they mean in plain English?
+- **N(d₁)**: The (risk-adjusted) probability that the option will be exercised, considering the expected growth of the asset.
+- **N(d₂)**: The (risk-adjusted) probability that the option will expire in the money, discounted at the risk-free rate.
+
+#### Why do we use the normal distribution?
+- The model uses the normal distribution to estimate these probabilities, because it describes the random "noise" in asset prices over time.
+
+#### In the Black-Scholes formula:
+- For a call option:  
+  \( C = S N(d_1) - K e^{-rt} N(d_2) \)
+- For a put option:  
+  \( P = K e^{-rt} N(-d_2) - S N(-d_1) \)
+
+Where:
+- \( S N(d_1) \) is the present value of receiving the stock, weighted by the probability of exercise.
+- \( K e^{-rt} N(d_2) \) is the present value of paying the strike price, weighted by the probability of exercise.
+
+**In short:**  
+d₁ and d₂ help us use probability theory to estimate the fair price of an option, by weighing possible outcomes according to how likely they are.
+""")
     st.divider()
 
     # --- Input Form ---
@@ -206,7 +234,7 @@ with st.container():
                 st.info("N(x) is the cumulative distribution function (CDF) of the standard normal distribution.")
 
                 # --- Graphical Explanation ---
-                st.markdown("#### Visualizing d₁ and d₂ on the Standard Normal Distribution")
+                st.markdown("#### Visualising d₁ and d₂ on the Standard Normal Distribution")
                 x = np.linspace(-4, 4, 500)
                 y = norm.pdf(x)
                 fig, ax = plt.subplots(figsize=(7, 3.5))
@@ -235,7 +263,7 @@ with st.container():
 # --- Footer ---
 st.markdown("""
     <div class='footer'>
-        &copy; 2024 Joshua Nolan &mdash; Black-Scholes Model App<br>
+        &copy; 2025 Joshua Nolan &mdash; Black-Scholes Model App<br>
         <span style='font-size:0.95em;'>Made with <span style='color:#ef4444;'>&#10084;&#65039;</span> and Streamlit</span>
     </div>
 """, unsafe_allow_html=True) 
