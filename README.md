@@ -1,7 +1,7 @@
 This repo includes a Python REPL (Read-Eval-Print Loop) application that calculates call and put options for given input values using the Black-Scholes Model.
 
 I aim to include a user friendly GUI using Streamlit.
-UPDATE: Streamlit app has been added - https://blackscholes-joshua-nolan.streamlit.app/
+UPDATE: Streamlit app with UI is up and running - https://blackscholes-joshua-nolan.streamlit.app/
 
 To run:
 ```
