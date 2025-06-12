@@ -102,6 +102,6 @@ st.markdown("---")
 st.markdown("""
 <div style='text-align: center'>
     <p>Built by Joshua Nolan • Black-Scholes Model</p>
-    <p style='font-size: 0.8em; color: #666;'>© 2024</p>
+    <p style='font-size: 0.8em; color: #666;'>© 2025</p>
 </div>
 """, unsafe_allow_html=True) 
