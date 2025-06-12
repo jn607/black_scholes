@@ -11,9 +11,14 @@ st.set_page_config(
 # --- Custom CSS for modern, animated look ---
 st.markdown("""
     <style>
+    /* Remove Streamlit default padding and header */
+    .block-container {
+        padding-top: 1.5rem !important;
+    }
+    header {visibility: hidden;}
     /* Animated gradient background */
     body {
-        background: linear-gradient(-45deg, #e0e7ef, #a5b4fc, #f0abfc, #fcd34d, #fca5a5);
+        background: linear-gradient(-45deg, #e0e7ef, #bbf7d0, #fecaca, #fca5a5, #bbf7d0);
         background-size: 400% 400%;
         animation: gradientBG 15s ease infinite;
     }
@@ -30,40 +35,41 @@ st.markdown("""
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         padding: 2.5rem 2rem 2rem 2rem;
-        margin-top: 2.5rem;
+        margin-top: 1.5rem;
         border: 1.5px solid rgba(255,255,255,0.25);
         transition: box-shadow 0.3s;
     }
     .main:hover {
         box-shadow: 0 12px 40px 0 rgba(31,38,135,0.22);
     }
-    /* Animated gradient title */
+    /* Animated green-red gradient title */
     .gradient-title {
         font-size: 2.7em;
         font-weight: 900;
         text-align: center;
-        background: linear-gradient(90deg, #6366f1, #f472b6, #fbbf24, #34d399);
+        background: linear-gradient(90deg, #22c55e, #ef4444);
         background-size: 200% 200%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: shine 4s linear infinite;
         letter-spacing: 0.03em;
         margin-bottom: 0.1em;
+        margin-top: 0.2em;
     }
     @keyframes shine {
         0% {background-position: 0% 50%;}
         100% {background-position: 100% 50%;}
     }
-    /* Beveled, shiny, animated button */
+    /* Beveled, shiny, animated main button */
     .stButton>button {
-        background: linear-gradient(90deg, #6366f1 0%, #f472b6 100%);
+        background: linear-gradient(90deg, #22c55e 0%, #ef4444 100%);
         color: white;
         border-radius: 12px;
         font-weight: 700;
         font-size: 1.1em;
         padding: 0.7em 2.5em;
         border: none;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.15);
+        box-shadow: 0 2px 8px rgba(34,197,94,0.15);
         transition: all 0.2s cubic-bezier(.4,0,.2,1);
         position: relative;
         overflow: hidden;
@@ -81,8 +87,9 @@ st.markdown("""
         z-index: 1;
     }
     .stButton>button:hover {
-        box-shadow: 0 6px 24px rgba(99,102,241,0.25);
+        box-shadow: 0 6px 24px rgba(34,197,94,0.25);
         transform: translateY(-2px) scale(1.04);
+        filter: brightness(1.08);
     }
     .stButton>button:hover:after {
         width: 120%;
@@ -90,12 +97,12 @@ st.markdown("""
     /* Animated input fields */
     .stNumberInput>div>input {
         border-radius: 8px !important;
-        border: 1.5px solid #c7d2fe !important;
+        border: 1.5px solid #bbf7d0 !important;
         transition: border 0.2s, box-shadow 0.2s;
     }
     .stNumberInput>div>input:focus {
-        border: 1.5px solid #6366f1 !important;
-        box-shadow: 0 0 0 2px #6366f1;
+        border: 1.5px solid #22c55e !important;
+        box-shadow: 0 0 0 2px #22c55e;
     }
     /* Results animation */
     .result-card {
@@ -151,11 +158,11 @@ with st.container():
                     <div style='display:flex; justify-content:space-around;'>
                         <div>
                             <div style='color:#64748b; font-size:1.1em;'>Call Option Price</div>
-                            <div style='font-size:2.1em; font-weight:700; color:#6366f1;'>${:.2f}</div>
+                            <div style='font-size:2.1em; font-weight:700; color:#22c55e;'>${:.2f}</div>
                         </div>
                         <div>
                             <div style='color:#64748b; font-size:1.1em;'>Put Option Price</div>
-                            <div style='font-size:2.1em; font-weight:700; color:#f472b6;'>${:.2f}</div>
+                            <div style='font-size:2.1em; font-weight:700; color:#ef4444;'>${:.2f}</div>
                         </div>
                     </div>
                     <div style='margin-top:1em; text-align:center; color:#64748b; font-size:1em;'>
@@ -172,6 +179,6 @@ with st.container():
 st.markdown("""
     <div class='footer'>
         &copy; 2024 Joshua Nolan &mdash; Black-Scholes Model App<br>
-        <span style='font-size:0.95em;'>Made with <span style='color:#f472b6;'>&#10084;&#65039;</span> and Streamlit</span>
+        <span style='font-size:0.95em;'>Made with <span style='color:#ef4444;'>&#10084;&#65039;</span> and Streamlit</span>
     </div>
 """, unsafe_allow_html=True) 
